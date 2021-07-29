@@ -1,3 +1,11 @@
+def count_grades(grade):
+    count = 0
+    count_courses = 0
+    for key, value in grade.items():
+        count += len(value) / sum(value)
+        count_courses += 1
+    return count_courses/count
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -17,6 +25,12 @@ class Student:
                     lecturer.grade_from_students[course] += [grade]
             else:
                 return 'Ошибка'
+    def __str__(self):
+        return f'Имя: {self.name}\nФамилия: {self.surname}\n' \
+               f'Средняя оценка за домашнее задание: {count_grades(self.grades)}\n' \
+               f'Курсы в процессе изучения: {", ".join(map(str, self.courses_in_progress))}\n' \
+               f'Завершенные курсы: {", ".join(map(str, self.finished_courses))}'
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -27,6 +41,10 @@ class Mentor:
 class Lecturer(Mentor):
     grade_from_students = {}
 
+    def __str__(self):
+        return f'Имя: {self.name}\nФамилия: {self.surname}\n' \
+               f'Средняя оценка за лекции: {count_grades(self.grade_from_students)}'
+
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
@@ -36,3 +54,6 @@ class Reviewer(Mentor):
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
+
+    def __str__(self):
+        return f'Имя: {self.name}\nФамилия: {self.surname}'
