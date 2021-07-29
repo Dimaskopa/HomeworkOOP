@@ -37,9 +37,10 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
+        self.grade_from_students = {}
 
 class Lecturer(Mentor):
-    grade_from_students = {}
+    pass
 
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}\n' \
