@@ -1,3 +1,4 @@
+#Функция для подсчетов средней оценки:
 def count_grades(grade):
     count = 0
     count_courses = 0
@@ -26,6 +27,7 @@ class Student:
             else:
                 return 'Ошибка'
     def __str__(self):
+        self.avg_grade = count_grades(self.grades)
         return f'Имя: {self.name}\nФамилия: {self.surname}\n' \
                f'Средняя оценка за домашнее задание: {count_grades(self.grades)}\n' \
                f'Курсы в процессе изучения: {", ".join(map(str, self.courses_in_progress))}\n' \
@@ -43,6 +45,7 @@ class Lecturer(Mentor):
     pass
 
     def __str__(self):
+        self.avg_grade = count_grades(self.grade_from_students)
         return f'Имя: {self.name}\nФамилия: {self.surname}\n' \
                f'Средняя оценка за лекции: {count_grades(self.grade_from_students)}'
 
@@ -58,3 +61,5 @@ class Reviewer(Mentor):
 
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
+
+
